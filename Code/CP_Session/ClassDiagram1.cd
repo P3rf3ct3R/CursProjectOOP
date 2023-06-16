@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CP_Session.Discipline">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQIAAAAIAgAIAAAAAQAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Discipline.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CP_Session.File">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAQA=</HashCode>
+      <FileName>File.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CP_Session.FormAbout">
+    <Position X="0.5" Y="6" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAABAAAACAAAACAAAIAAAAAEAQAAAAAAA=</HashCode>
+      <FileName>FormAbout.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CP_Session.FormEditStudent">
+    <Position X="8.25" Y="6" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AGBAABAAACAAQABQAAGEJgFPQACAgAAgBAgAQKQAAAA=</HashCode>
+      <FileName>FormEditStudent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CP_Session.FormGrade">
+    <Position X="9.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AKAQgAQACCIACCAAgACAAAgSAAIAAAAAAAAIAAABAAA=</HashCode>
+      <FileName>FormGrade.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CP_Session.FormMain">
+    <Position X="2.5" Y="6" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AEAQAAAAACAIwEARSQDQFIECRAACgAAQIEAKAQAIACA=</HashCode>
+      <FileName>FormMain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CP_Session.FormReport">
+    <Position X="7.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAACAgA=</HashCode>
+      <FileName>FormReport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CP_Session.FormStudent">
+    <Position X="5.75" Y="6" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ACBECBSgEDIAWlBUAEHFAgFGQEQKgAAwAAgAQCgBAAA=</HashCode>
+      <FileName>FormStudent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CP_Session.Program">
+    <Position X="5.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CP_Session.Session&lt;T&gt;" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAABAACAAQBAQAAAAAAAAEAAIAQABQIAg=</HashCode>
+      <FileName>Session.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.133" Collapsed="true" />
+  </Class>
+  <Class Name="CP_Session.Student" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAiAGgAAAAAAIQAQAAAAGQABAASAAAAAAAAkAAAEAA=</HashCode>
+      <FileName>Student.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
