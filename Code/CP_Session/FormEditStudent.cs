@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace CP_Session
@@ -28,13 +23,30 @@ namespace CP_Session
             numericYearOfStudy.Value = _student.YearOfStudy;
             textBoxSpecialty.Text = _student.Specialty;
             textBoxFaculty.Text = _student.Faculty;
+            textBoxNameStudent.Focus();
         }
 
         private void buttonOKStudent_Click(object sender, EventArgs e)
         {
-            if (ValidateChildren(ValidationConstraints.Enabled))
+            errorProviderStudent.Clear();
+            foreach (Control textBox in this.Controls)
             {
-                NewStudent.Id = int.Parse(textBoxIdStudent.Text);
+                if (textBox is TextBox)
+                {
+                    if (string.IsNullOrEmpty(textBox.Text))
+                    {
+                        errorProviderStudent.SetError(textBox, "Введите не пустое значение!");
+                        return;
+                    }
+                    if (textBox.ForeColor == Color.Red)
+                    {
+                        errorProviderStudent.SetError(textBox, "Введите правильное значение!");
+                        return;
+                    }
+                }
+            }
+
+            NewStudent.Id = int.Parse(textBoxIdStudent.Text);
                 NewStudent.Name = textBoxNameStudent.Text;
                 NewStudent.Patronymic = textBoxPatronymicStudent.Text;
                 NewStudent.Surname = textBoxSurnameStudent.Text;
@@ -46,7 +58,6 @@ namespace CP_Session
                 NewStudent.Faculty = textBoxFaculty.Text;
                 this.DialogResult = DialogResult.OK;
                 Close();
-            }
         }
 
         private void buttonCancelStudent_Click(object sender, EventArgs e)
@@ -55,15 +66,36 @@ namespace CP_Session
             Close();
         }
 
-        private void TextBox_Validating(object sender, CancelEventArgs e)
+        private void textBox_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace((sender as TextBox).Text))
+            Regex regexMatchAnyCyrillicChar = new Regex(@"(.*[0-9]+.*)|(^[а-яa-z]+.*$)");
+            MatchCollection regexMatches = regexMatchAnyCyrillicChar.Matches((sender as TextBox).Text);
+
+            if (regexMatches.Count > 0)
             {
-                e.Cancel = true;
-                errorProviderStudent.SetError(sender as TextBox, "Введите не пустое значение!");
+                errorProviderStudent.SetError((sender as TextBox), "Вводите название дисциплины в кириллице, с большой буквы. Латинские буквы, цифры и спецсимволы запрещены.");
+                (sender as TextBox).ForeColor = Color.Red;
             }
             else
             {
+                (sender as TextBox).ForeColor = SystemColors.WindowText;
+                errorProviderStudent.Clear();
+            }
+        }
+
+        private void textBoxGroup_TextChanged(object sender, EventArgs e)
+        {
+            Regex regexMatchChar = new Regex(@"(^[0-9]{2}[А-ЯA-Z]\S)$");
+            MatchCollection regexMatches = regexMatchChar.Matches(textBoxGroup.Text);
+
+            if (regexMatches.Count > 0)
+            {
+                errorProviderStudent.SetError(textBoxGroup, "Вводите название группы.");
+                textBoxGroup.ForeColor = Color.Red;
+            }
+            else
+            {
+                textBoxGroup.ForeColor = SystemColors.WindowText;
                 errorProviderStudent.Clear();
             }
         }

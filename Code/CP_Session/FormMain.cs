@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CP_Session
@@ -13,7 +8,7 @@ namespace CP_Session
     public partial class FormMain : Form
     {
         string fileName = "session.xml";
-        Session<Student> ss;
+        Session<Student> ss = new Session<Student>();
 
         /// <summary>
         /// Инициализация главной формы
@@ -26,39 +21,25 @@ namespace CP_Session
             f2.ShowDialog();
         }
 
+        /// <summary>
+        /// Обновление и заполнение элементов управления типа ComboBox
+        /// </summary>
         private void UpdateComboBoxs()
         {
-            var groupedStudents = ss.Students.GroupBy(s => s.Faculty)
-                                             .OrderBy(f => f.Key)
-                                             .Select(f => new
-                                             {
-                                                 Faculty = f.Key,
-                                                 Specialties = f.GroupBy(s => s.Specialty)
-                                                                .OrderBy(sp => sp.Key)
-                                                                .Select(sp => new
-                                                                {
-                                                                    Specialty = sp.Key,
-                                                                    Groups = sp.GroupBy(s => s.Group)
-                                                                               .OrderBy(g => g.Key)
-                                                                               .Select(g => new
-                                                                               {
-                                                                                   Group = g.Key,
-                                                                                   Students = g.Select(s => s)
-                                                                                               .OrderBy(s => s.FIO)
-                                                                               })
-                                                                })
-                                             });
-            foreach (var faculty in groupedStudents)
+            comboBoxFaculty.Items.Clear();
+            comboBoxFaculty.Items.Add("Все");
+            comboBoxFaculty.SelectedIndex = 0;
+            comboBoxSpecialty.Text = "";
+            comboBoxSpecialty.Items.Clear();
+            comboBoxGroup.Text = "";
+            comboBoxGroup.Items.Clear();
+            if (ss != null)
             {
-                comboBoxFaculty.Items.Add(faculty.Faculty);
-                foreach (var specialty in faculty.Specialties)
-                {
-                    comboBoxSpecialty.Items.Add(specialty.Specialty);
-                    foreach (var group in specialty.Groups)
-                    {
-                        comboBoxGroup.Items.Add(group.Group);
-                    }
-                }
+                var listFaculties = ss.Students.GroupBy(s => s.Faculty)
+                                             .OrderBy(f => f.Key)
+                                             .Select(f => f.Key)
+                                             .ToArray();
+                comboBoxFaculty.Items.AddRange(listFaculties);
             }
         }
 
@@ -78,9 +59,12 @@ namespace CP_Session
             dataGridViewSession.Columns.Add(new DataGridViewTextBoxColumn() { Name = "YearOfStudy", HeaderText = "Год обучения", Width = 30 });
             dataGridViewSession.Columns.Add(new DataGridViewTextBoxColumn() { Name = "FormOfStudy", HeaderText = "Форма обучения", Width = 80 });
             dataGridViewSession.Columns.Add(new DataGridViewTextBoxColumn() { Name = "AverageScore", HeaderText = "Средний балл", Width = 90, DefaultCellStyle = new DataGridViewCellStyle() { Format = "N3" } });
-            foreach (Student stud in ss.Students)
+            if (ss != null)
             {
-                dataGridViewSession.Rows.Add(stud.Id, stud.FIO, stud.DateOfBirth.ToShortDateString(), stud.Group, stud.Specialty, stud.Faculty, stud.YearOfStudy, stud.FormOfStudy, stud.AverageScore);
+                foreach (Student stud in ss.Students)
+                {
+                    dataGridViewSession.Rows.Add(stud.Id, stud.FIO, stud.DateOfBirth.ToShortDateString(), stud.Group, stud.Specialty, stud.Faculty, stud.YearOfStudy, stud.FormOfStudy, stud.AverageScore);
+                }
             }
         }
 
@@ -149,34 +133,49 @@ namespace CP_Session
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
             fileName = openFileDialog1.FileName;
-            //string fileText = System.IO.File.ReadAllText(filename);
-            //textBox1.Text = fileText;
             ss = File.LoadFromXml(fileName);
             MessageBox.Show("Файл открыт");
             UpdateDataGridView();
             UpdateComboBoxs();
         }
 
+        /// <summary>
+        /// Нажатие кнопки Поиск
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            int i = 0;
-            if (dataGridViewSession.CurrentCell.ColumnIndex == 1 &&
-                dataGridViewSession.CurrentCell.FormattedValue.ToString().Contains(textBoxSearch.Text))
+            if (dataGridViewSession.RowCount > 0)
             {
-                i = dataGridViewSession.CurrentCell.RowIndex + 1;
-            }
-            while (i < dataGridViewSession.RowCount)
-            {
-                if (dataGridViewSession[1, i].FormattedValue.ToString().Contains(textBoxSearch.Text))
+                int i = 0;
+                if (dataGridViewSession.CurrentCell.ColumnIndex == 1 &&
+                    dataGridViewSession.CurrentCell.FormattedValue.ToString().Contains(textBoxSearch.Text))
                 {
-                    dataGridViewSession.CurrentCell = dataGridViewSession[1, i];
-                    return;
+                    i = dataGridViewSession.CurrentCell.RowIndex + 1;
                 }
-                i++;
+                while (i < dataGridViewSession.RowCount)
+                {
+                    if (dataGridViewSession[1, i].FormattedValue.ToString().Contains(textBoxSearch.Text))
+                    {
+                        dataGridViewSession.CurrentCell = dataGridViewSession[1, i];
+                        return;
+                    }
+                    i++;
+                }
+                MessageBox.Show("Ничего не найдено!");
             }
-            MessageBox.Show("Ничего не найдено!");
+            else
+            {
+                MessageBox.Show("Пуста таблица!");
+            }
         }
 
+        /// <summary>
+        /// Нажатие кнопки Отчет
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonReport_Click(object sender, EventArgs e)
         {
             if (dataGridViewSession.RowCount > 0)
@@ -189,11 +188,21 @@ namespace CP_Session
             }
         }
 
+        /// <summary>
+        /// Блокировка ввода с клавиатуры во всех списках типа ComboBox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
         }
 
+        /// <summary>
+        /// Нажатие на выбранный пункт в списке Факультет
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBoxFaculty_SelectedIndexChanged(object sender, EventArgs e)
         {
             var selectedText = (string)comboBoxFaculty.SelectedItem;
@@ -201,6 +210,8 @@ namespace CP_Session
             if (selectedText == "Все")
             {
                 UpdateDataGridView();
+                comboBoxSpecialty.Items.Clear();
+                comboBoxGroup.Items.Clear();
             }
             else
             {
@@ -210,16 +221,29 @@ namespace CP_Session
                 {
                     dataGridViewSession.Rows.Add(stud.Id, stud.FIO, stud.DateOfBirth.ToShortDateString(), stud.Group, stud.Specialty, stud.Faculty, stud.YearOfStudy, stud.FormOfStudy, stud.AverageScore);
                 }
+                comboBoxSpecialty.Items.Clear();
+                comboBoxSpecialty.Items.Add("Все");
+                var listSpecialties = selectedGroup.GroupBy(s => s.Specialty)
+                                                   .OrderBy(sp => sp.Key)
+                                                   .Select(sp => sp.Key)
+                                                   .ToArray();
+                comboBoxSpecialty.Items.AddRange(listSpecialties);
             }
         }
 
+        /// <summary>
+        /// Нажатие на выбранный пункт в списке Специальность
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBoxSpecialty_SelectedIndexChanged(object sender, EventArgs e)
         {
             var selectedText = (string)comboBoxSpecialty.SelectedItem;
 
             if (selectedText == "Все")
             {
-                UpdateDataGridView();
+                comboBoxFaculty_SelectedIndexChanged(sender, e);
+                comboBoxGroup.Items.Clear();
             }
             else
             {
@@ -229,16 +253,28 @@ namespace CP_Session
                 {
                     dataGridViewSession.Rows.Add(stud.Id, stud.FIO, stud.DateOfBirth.ToShortDateString(), stud.Group, stud.Specialty, stud.Faculty, stud.YearOfStudy, stud.FormOfStudy, stud.AverageScore);
                 }
+                comboBoxGroup.Items.Clear();
+                comboBoxGroup.Items.Add("Все");
+                var listGroups = selectedGroup.GroupBy(s => s.Group)
+                                                   .OrderBy(g => g.Key)
+                                                   .Select(g => g.Key)
+                                                   .ToArray();
+                comboBoxGroup.Items.AddRange(listGroups);
             }
         }
 
+        /// <summary>
+        /// Нажатие на выбранный пункт в списке Группа
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBoxGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
             var selectedText = (string)comboBoxGroup.SelectedItem;
 
             if (selectedText == "Все")
             {
-                UpdateDataGridView();
+                comboBoxSpecialty_SelectedIndexChanged(sender, e);
             }
             else
             {

@@ -63,7 +63,7 @@
             this.buttonOKStudent.Location = new System.Drawing.Point(44, 287);
             this.buttonOKStudent.Name = "buttonOKStudent";
             this.buttonOKStudent.Size = new System.Drawing.Size(100, 25);
-            this.buttonOKStudent.TabIndex = 2;
+            this.buttonOKStudent.TabIndex = 11;
             this.buttonOKStudent.Text = "ОК";
             this.buttonOKStudent.UseVisualStyleBackColor = true;
             this.buttonOKStudent.Click += new System.EventHandler(this.buttonOKStudent_Click);
@@ -74,7 +74,7 @@
             this.buttonCancelStudent.Location = new System.Drawing.Point(324, 287);
             this.buttonCancelStudent.Name = "buttonCancelStudent";
             this.buttonCancelStudent.Size = new System.Drawing.Size(100, 25);
-            this.buttonCancelStudent.TabIndex = 2;
+            this.buttonCancelStudent.TabIndex = 12;
             this.buttonCancelStudent.Text = "Отмена";
             this.buttonCancelStudent.UseVisualStyleBackColor = true;
             this.buttonCancelStudent.Click += new System.EventHandler(this.buttonCancelStudent_Click);
@@ -87,9 +87,9 @@
             this.textBoxFaculty.Location = new System.Drawing.Point(244, 224);
             this.textBoxFaculty.Name = "textBoxFaculty";
             this.textBoxFaculty.Size = new System.Drawing.Size(180, 24);
-            this.textBoxFaculty.TabIndex = 22;
+            this.textBoxFaculty.TabIndex = 10;
             this.textBoxFaculty.Text = "ФВТ";
-            this.textBoxFaculty.Validating += new System.ComponentModel.CancelEventHandler(this.TextBox_Validating);
+            this.textBoxFaculty.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // labelFaculty
             // 
@@ -110,9 +110,9 @@
             this.textBoxSpecialty.Multiline = true;
             this.textBoxSpecialty.Name = "textBoxSpecialty";
             this.textBoxSpecialty.Size = new System.Drawing.Size(180, 48);
-            this.textBoxSpecialty.TabIndex = 20;
+            this.textBoxSpecialty.TabIndex = 9;
             this.textBoxSpecialty.Text = "Программная инженерия";
-            this.textBoxSpecialty.Validating += new System.ComponentModel.CancelEventHandler(this.TextBox_Validating);
+            this.textBoxSpecialty.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // labelSpecialty
             // 
@@ -152,9 +152,9 @@
             this.textBoxGroup.Location = new System.Drawing.Point(244, 126);
             this.textBoxGroup.Name = "textBoxGroup";
             this.textBoxGroup.Size = new System.Drawing.Size(180, 24);
-            this.textBoxGroup.TabIndex = 14;
+            this.textBoxGroup.TabIndex = 6;
             this.textBoxGroup.Text = "19ПИ1";
-            this.textBoxGroup.Validating += new System.ComponentModel.CancelEventHandler(this.TextBox_Validating);
+            this.textBoxGroup.TextChanged += new System.EventHandler(this.textBoxGroup_TextChanged);
             // 
             // labelGroup
             // 
@@ -184,9 +184,9 @@
             this.textBoxSurnameStudent.Location = new System.Drawing.Point(44, 78);
             this.textBoxSurnameStudent.Name = "textBoxSurnameStudent";
             this.textBoxSurnameStudent.Size = new System.Drawing.Size(180, 24);
-            this.textBoxSurnameStudent.TabIndex = 18;
+            this.textBoxSurnameStudent.TabIndex = 3;
             this.textBoxSurnameStudent.Text = "Аркадов";
-            this.textBoxSurnameStudent.Validating += new System.ComponentModel.CancelEventHandler(this.TextBox_Validating);
+            this.textBoxSurnameStudent.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // labelNameStudent
             // 
@@ -206,9 +206,9 @@
             this.textBoxPatronymicStudent.Location = new System.Drawing.Point(244, 30);
             this.textBoxPatronymicStudent.Name = "textBoxPatronymicStudent";
             this.textBoxPatronymicStudent.Size = new System.Drawing.Size(180, 24);
-            this.textBoxPatronymicStudent.TabIndex = 19;
+            this.textBoxPatronymicStudent.TabIndex = 2;
             this.textBoxPatronymicStudent.Text = "Аркадиевич";
-            this.textBoxPatronymicStudent.Validating += new System.ComponentModel.CancelEventHandler(this.TextBox_Validating);
+            this.textBoxPatronymicStudent.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // labelSurnameStudent
             // 
@@ -228,9 +228,9 @@
             this.textBoxNameStudent.Location = new System.Drawing.Point(44, 30);
             this.textBoxNameStudent.Name = "textBoxNameStudent";
             this.textBoxNameStudent.Size = new System.Drawing.Size(180, 24);
-            this.textBoxNameStudent.TabIndex = 21;
+            this.textBoxNameStudent.TabIndex = 1;
             this.textBoxNameStudent.Text = "Аркадий";
-            this.textBoxNameStudent.Validating += new System.ComponentModel.CancelEventHandler(this.TextBox_Validating);
+            this.textBoxNameStudent.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // labelPatronymicStudent
             // 
@@ -258,7 +258,7 @@
             this.pickerDateOfBirth.Location = new System.Drawing.Point(244, 78);
             this.pickerDateOfBirth.Name = "pickerDateOfBirth";
             this.pickerDateOfBirth.Size = new System.Drawing.Size(180, 24);
-            this.pickerDateOfBirth.TabIndex = 23;
+            this.pickerDateOfBirth.TabIndex = 4;
             // 
             // comboBoxFormOfStudy
             // 
@@ -270,7 +270,7 @@
             this.comboBoxFormOfStudy.Location = new System.Drawing.Point(44, 174);
             this.comboBoxFormOfStudy.Name = "comboBoxFormOfStudy";
             this.comboBoxFormOfStudy.Size = new System.Drawing.Size(180, 26);
-            this.comboBoxFormOfStudy.TabIndex = 24;
+            this.comboBoxFormOfStudy.TabIndex = 7;
             this.comboBoxFormOfStudy.Text = "очная";
             // 
             // numericYearOfStudy
@@ -289,7 +289,7 @@
             0});
             this.numericYearOfStudy.Name = "numericYearOfStudy";
             this.numericYearOfStudy.Size = new System.Drawing.Size(180, 24);
-            this.numericYearOfStudy.TabIndex = 25;
+            this.numericYearOfStudy.TabIndex = 8;
             this.numericYearOfStudy.Value = new decimal(new int[] {
             1,
             0,
@@ -303,7 +303,7 @@
             this.textBoxIdStudent.Mask = "00000000";
             this.textBoxIdStudent.Name = "textBoxIdStudent";
             this.textBoxIdStudent.Size = new System.Drawing.Size(180, 24);
-            this.textBoxIdStudent.TabIndex = 26;
+            this.textBoxIdStudent.TabIndex = 5;
             this.textBoxIdStudent.Text = "12345678";
             // 
             // errorProviderStudent

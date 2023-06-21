@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CP_Session
@@ -45,19 +40,27 @@ namespace CP_Session
                 foreach (var specialty in faculty.Specialties)
                 {
                     richTextBoxReport.AppendText($"\tСпециальность {specialty.Specialty}:\n");
+                    richTextBoxReport.AppendText($"\t===========================================\n");
                     foreach (var group in specialty.Groups)
                     {
                         richTextBoxReport.AppendText($"\t\tГруппа {group.Group}:\n");
+                        richTextBoxReport.AppendText($"\t\t+++++++++++++++++++++++++++++++++++++++++++\n");
                         foreach (var student in group.Students)
                         {
-                            richTextBoxReport.AppendText($"\t\t\t {student.FIO} - {student.AverageScore}\n");
+                            richTextBoxReport.AppendText($"\t\t\t {student.FIO} - {student.AverageScore:N2}\n");
+                            richTextBoxReport.AppendText($"\t\t\t -------------------------------------------\n");
                             foreach (var discipline in student.Disciplines)
                             {
                                 richTextBoxReport.AppendText($"\t\t\t\t {discipline.Name} - {discipline.Score}\n");
                             }
+                            richTextBoxReport.AppendText($"\t\t\t -------------------------------------------\n");
                         }
+                        richTextBoxReport.AppendText($"\t\t+++++++++++++++++++++++++++++++++++++++++++\n");
                     }
+                    richTextBoxReport.AppendText($"\t===========================================\n");
                 }
+                richTextBoxReport.AppendText($"************************************************\n");
+
             }
         }
     }

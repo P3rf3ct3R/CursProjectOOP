@@ -38,7 +38,7 @@
             this.richTextBoxReport.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.richTextBoxReport.Location = new System.Drawing.Point(0, 0);
             this.richTextBoxReport.Name = "richTextBoxReport";
-            this.richTextBoxReport.Size = new System.Drawing.Size(583, 422);
+            this.richTextBoxReport.Size = new System.Drawing.Size(604, 431);
             this.richTextBoxReport.TabIndex = 0;
             this.richTextBoxReport.Text = "";
             // 
@@ -46,7 +46,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(583, 422);
+            this.ClientSize = new System.Drawing.Size(604, 431);
             this.Controls.Add(this.richTextBoxReport);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
